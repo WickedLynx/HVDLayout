@@ -113,7 +113,7 @@
     UIView *superView = self.superview;
     if (superView != nil) {
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:0.0f constant:margin]];
+        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1.0f constant:margin]];
     }
 }
 
@@ -121,7 +121,7 @@
     UIView *superView = self.superview;
     if (superView != nil) {
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeLeft multiplier:0.0f constant:margin]];
+        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:margin]];
     }
 }
 
@@ -129,7 +129,7 @@
     UIView *superView = self.superview;
     if (superView != nil) {
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeRight multiplier:0.0f constant:-margin]];
+        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-margin]];
     }
 }
 
@@ -159,7 +159,7 @@
 
             [self addConstraint:[NSLayoutConstraint constraintWithItem:subview attribute:attribute relatedBy:NSLayoutRelationEqual toItem:firstSubview attribute:attribute multiplier:1.0f constant:0.0f]];
         }
-        
+
     }
 }
 
