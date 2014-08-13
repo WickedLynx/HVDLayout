@@ -34,9 +34,9 @@
     UIView *superView = self.superview;
     if (superView != nil) {
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        NSDictionary *views = NSDictionaryOfVariableBindings(self);
+        NSDictionary *views = NSDictionaryOfVariableBindings(self, superView);
         NSDictionary *metrics = @{@"top": @(top), @"bottom" : @(bottom)};
-        [superView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[self]-bottom-|" options:0 metrics:metrics views:views]];
+        [superView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[self(==superView@500)]-bottom-|" options:0 metrics:metrics views:views]];
     }
 }
 
@@ -44,9 +44,9 @@
     UIView *superView = self.superview;
     if (superView != nil) {
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        NSDictionary *views = NSDictionaryOfVariableBindings(self);
+        NSDictionary *views = NSDictionaryOfVariableBindings(self, superView);
         NSDictionary *metrics = @{@"left": @(left), @"right" : @(right)};
-        [superView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[self]-right-|" options:0 metrics:metrics views:views]];
+        [superView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[self(==superView@500)]-right-|" options:0 metrics:metrics views:views]];
     }
 }
 
