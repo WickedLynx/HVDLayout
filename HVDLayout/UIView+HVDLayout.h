@@ -26,13 +26,19 @@
 - (void)HVD_centerXWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant subview:(UIView *)subview NS_DEPRECATED_IOS(6_0, 7_0);
 - (void)HVD_centerYWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant subview:(UIView *)subview NS_DEPRECATED_IOS(6_0, 7_0);
 
-// MARK: Pin
+// MARK: Pin inside the superview
 
 - (void)HVD_pinToBottomOfSuperviewWithMargin:(CGFloat)margin;
 - (void)HVD_pinToTopOfSuperviewWithMargin:(CGFloat)margin;
 - (void)HVD_pinToLeftOfSuperviewWithMargin:(CGFloat)margin;
 - (void)HVD_pinToRightOfSuperviewWithMargin:(CGFloat)margin;
 
+// MARK: Pin relative to siblings
+
+- (void)HVD_pinToRightOfView:(UIView *)view withMargin:(CGFloat)margin;
+- (void)HVD_pinToLeftOfView:(UIView *)view withMargin:(CGFloat)margin;
+- (void)HVD_pinToTopOfView:(UIView *)view withMargin:(CGFloat)margin;
+- (void)HVD_pinToBottomOfView:(UIView *)view withMargin:(CGFloat)margin;
 
 // MARK: Set dimensions
 
