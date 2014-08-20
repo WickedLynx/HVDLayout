@@ -34,7 +34,7 @@
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     NSDictionary *views = NSDictionaryOfVariableBindings(self, superview);
     NSDictionary *metrics = @{@"top": @(top), @"bottom" : @(bottom)};
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[self(==superView@500)]-bottom-|" options:0 metrics:metrics views:views];
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[self(==superview@500)]-bottom-|" options:0 metrics:metrics views:views];
     [superview addConstraints:constraints];
     return constraints;
 }
@@ -44,7 +44,7 @@
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     NSDictionary *views = NSDictionaryOfVariableBindings(self, superview);
     NSDictionary *metrics = @{@"left": @(left), @"right" : @(right)};
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[self(==superView@500)]-right-|" options:0 metrics:metrics views:views];
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[self(==superview@500)]-right-|" options:0 metrics:metrics views:views];
     [superview addConstraints:constraints];
     return constraints;
 }
