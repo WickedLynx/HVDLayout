@@ -12,15 +12,15 @@
 
 - (void)HVD_fillSubview:(UIView *)subview withInsets:(UIEdgeInsets)insets NS_DEPRECATED_IOS(6_0, 7_0);
 
-- (void)HVD_fillInSuperViewWithInsets:(UIEdgeInsets)insets;
-- (void)HVD_fillVerticallyInSuperviewWithTopMargin:(CGFloat)top bottomMargin:(CGFloat)bottom;
-- (void)HVD_fillHorizontallyInSuperviewWithLeftMargin:(CGFloat)left rightMargin:(CGFloat)right;
+- (NSArray *)HVD_fillInSuperViewWithInsets:(UIEdgeInsets)insets;
+- (NSArray *)HVD_fillVerticallyInSuperviewWithTopMargin:(CGFloat)top bottomMargin:(CGFloat)bottom;
+- (NSArray *)HVD_fillHorizontallyInSuperviewWithLeftMargin:(CGFloat)left rightMargin:(CGFloat)right;
 
 // MARK: Center
 
-- (void)HVD_centerInSuperView;
-- (void)HVD_centerXInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant;
-- (void)HVD_centerYInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant;
+- (NSArray *)HVD_centerInSuperView;
+- (NSLayoutConstraint *)HVD_centerXInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant;
+- (NSLayoutConstraint *)HVD_centerYInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant;
 
 - (void)HVD_centerSubview:(UIView *)subview NS_DEPRECATED_IOS(6_0, 7_0);
 - (void)HVD_centerXWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant subview:(UIView *)subview NS_DEPRECATED_IOS(6_0, 7_0);
@@ -28,22 +28,22 @@
 
 // MARK: Pin inside the superview
 
-- (void)HVD_pinToBottomOfSuperviewWithMargin:(CGFloat)margin;
-- (void)HVD_pinToTopOfSuperviewWithMargin:(CGFloat)margin;
-- (void)HVD_pinToLeftOfSuperviewWithMargin:(CGFloat)margin;
-- (void)HVD_pinToRightOfSuperviewWithMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToBottomOfSuperviewWithMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToTopOfSuperviewWithMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToLeftOfSuperviewWithMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToRightOfSuperviewWithMargin:(CGFloat)margin;
 
 // MARK: Pin relative to siblings
 
-- (void)HVD_pinToRightOfView:(UIView *)view withMargin:(CGFloat)margin;
-- (void)HVD_pinToLeftOfView:(UIView *)view withMargin:(CGFloat)margin;
-- (void)HVD_pinToTopOfView:(UIView *)view withMargin:(CGFloat)margin;
-- (void)HVD_pinToBottomOfView:(UIView *)view withMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToRightOfView:(UIView *)view withMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToLeftOfView:(UIView *)view withMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToTopOfView:(UIView *)view withMargin:(CGFloat)margin;
+- (NSLayoutConstraint *)HVD_pinToBottomOfView:(UIView *)view withMargin:(CGFloat)margin;
 
 // MARK: Set dimensions
 
-- (void)HVD_setWidth:(CGFloat)width;
-- (void)HVD_setHeight:(CGFloat)height;
+- (NSLayoutConstraint *)HVD_setWidth:(CGFloat)width;
+- (NSLayoutConstraint *)HVD_setHeight:(CGFloat)height;
 
 // MARK: Relative attributes
 

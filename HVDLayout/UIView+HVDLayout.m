@@ -23,31 +23,30 @@
     }
 }
 
-- (void)HVD_fillInSuperViewWithInsets:(UIEdgeInsets)insets {
-    if (self.superview != nil) {
-        [self HVD_fillVerticallyInSuperviewWithTopMargin:insets.top bottomMargin:insets.bottom];
-        [self HVD_fillHorizontallyInSuperviewWithLeftMargin:insets.left rightMargin:insets.right];
-    }
+- (NSArray *)HVD_fillInSuperViewWithInsets:(UIEdgeInsets)insets {
+    NSMutableArray *constraints = [[self HVD_fillVerticallyInSuperviewWithTopMargin:insets.top bottomMargin:insets.bottom] mutableCopy];
+    [constraints addObjectsFromArray:[self HVD_fillHorizontallyInSuperviewWithLeftMargin:insets.left rightMargin:insets.right]];
+    return constraints;
 }
 
-- (void)HVD_fillVerticallyInSuperviewWithTopMargin:(CGFloat)top bottomMargin:(CGFloat)bottom {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        NSDictionary *views = NSDictionaryOfVariableBindings(self, superView);
-        NSDictionary *metrics = @{@"top": @(top), @"bottom" : @(bottom)};
-        [superView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[self(==superView@500)]-bottom-|" options:0 metrics:metrics views:views]];
-    }
+- (NSArray *)HVD_fillVerticallyInSuperviewWithTopMargin:(CGFloat)top bottomMargin:(CGFloat)bottom {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSDictionary *views = NSDictionaryOfVariableBindings(self, superview);
+    NSDictionary *metrics = @{@"top": @(top), @"bottom" : @(bottom)};
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[self(==superView@500)]-bottom-|" options:0 metrics:metrics views:views];
+    [superview addConstraints:constraints];
+    return constraints;
 }
 
-- (void)HVD_fillHorizontallyInSuperviewWithLeftMargin:(CGFloat)left rightMargin:(CGFloat)right {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        NSDictionary *views = NSDictionaryOfVariableBindings(self, superView);
-        NSDictionary *metrics = @{@"left": @(left), @"right" : @(right)};
-        [superView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[self(==superView@500)]-right-|" options:0 metrics:metrics views:views]];
-    }
+- (NSArray *)HVD_fillHorizontallyInSuperviewWithLeftMargin:(CGFloat)left rightMargin:(CGFloat)right {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSDictionary *views = NSDictionaryOfVariableBindings(self, superview);
+    NSDictionary *metrics = @{@"left": @(left), @"right" : @(right)};
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[self(==superView@500)]-right-|" options:0 metrics:metrics views:views];
+    [superview addConstraints:constraints];
+    return constraints;
 }
 
 // MARK: Center
@@ -75,108 +74,111 @@
     }
 }
 
-- (void)HVD_centerInSuperView {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self HVD_centerXInSuperViewWithMultiplier:1.0f constant:0.0f];
-        [self HVD_centerYInSuperViewWithMultiplier:1.0f constant:0.0f];
-    }
+- (NSArray *)HVD_centerInSuperView {
+    NSMutableArray *addedConstraints = [NSMutableArray arrayWithCapacity:2];
+    [addedConstraints addObject:[self HVD_centerXInSuperViewWithMultiplier:1.0f constant:0.0f]];
+    [addedConstraints addObject:[self HVD_centerYInSuperViewWithMultiplier:1.0f constant:0.0f]];
+    return addedConstraints;
 }
 
-- (void)HVD_centerXInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterX multiplier:multiplier constant:constant]];
-    }
+- (NSLayoutConstraint *)HVD_centerXInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superview attribute:NSLayoutAttributeCenterX multiplier:multiplier constant:constant];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_centerYInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterY multiplier:multiplier constant:constant]];
-    }
+- (NSLayoutConstraint *)HVD_centerYInSuperViewWithMultiplier:(CGFloat)multiplier constant:(CGFloat)constant {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superview attribute:NSLayoutAttributeCenterY multiplier:multiplier constant:constant];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
 // MARK: Pin in superview
 
-- (void)HVD_pinToBottomOfSuperviewWithMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToBottomOfSuperviewWithMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superview attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_pinToTopOfSuperviewWithMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1.0f constant:margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToTopOfSuperviewWithMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superview attribute:NSLayoutAttributeTop multiplier:1.0f constant:margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_pinToLeftOfSuperviewWithMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToLeftOfSuperviewWithMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:superview attribute:NSLayoutAttributeLeft multiplier:1.0f constant:margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_pinToRightOfSuperviewWithMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToRightOfSuperviewWithMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:superview attribute:NSLayoutAttributeRight multiplier:1.0f constant:-margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
 // MARK: Pin relative to siblings
 
-- (void)HVD_pinToRightOfView:(UIView *)view withMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil && [view.superview isEqual:superView]) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeRight multiplier:1.0f constant:margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToRightOfView:(UIView *)view withMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeRight multiplier:1.0f constant:margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_pinToLeftOfView:(UIView *)view withMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil && [view.superview isEqual:superView]) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeLeft multiplier:1.0f constant:-margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToLeftOfView:(UIView *)view withMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeLeft multiplier:1.0f constant:-margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_pinToTopOfView:(UIView *)view withMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil && [view.superview isEqual:superView]) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeTop multiplier:1.0f constant:-margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToTopOfView:(UIView *)view withMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeTop multiplier:1.0f constant:-margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_pinToBottomOfView:(UIView *)view withMargin:(CGFloat)margin {
-    UIView *superView = self.superview;
-    if (superView != nil && [view.superview isEqual:superView]) {
-        [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [superView addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:margin]];
-    }
+- (NSLayoutConstraint *)HVD_pinToBottomOfView:(UIView *)view withMargin:(CGFloat)margin {
+    UIView *superview = self.superview;
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:margin];
+    [superview addConstraint:constraint];
+    return constraint;
 }
 
 // MARK: Set dimensions
 
-- (void)HVD_setHeight:(CGFloat)height {
+- (NSLayoutConstraint *)HVD_setHeight:(CGFloat)height {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0f constant:height]];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0f constant:height];
+    [self addConstraint:constraint];
+    return constraint;
 }
 
-- (void)HVD_setWidth:(CGFloat)width {
+- (NSLayoutConstraint *)HVD_setWidth:(CGFloat)width {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0f constant:width]];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0f constant:width];
+    [self addConstraint:constraint];
+    return constraint;
 }
 
 // MARK: Relative attributes
