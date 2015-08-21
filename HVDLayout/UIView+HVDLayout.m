@@ -181,6 +181,20 @@
     return constraint;
 }
 
+- (NSLayoutConstraint *)HVD_setWidthRelativeToView:(UIView *)view withMultiplier:(CGFloat)multiplier constant:(CGFloat)constant {
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeWidth multiplier:multiplier constant:constant];
+
+    return constraint;
+}
+
+- (NSLayoutConstraint *)HVD_setHeightRelativeToView:(UIView *)view withMultiplier:(CGFloat)multiplier constant:(CGFloat)constant {
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeHeight multiplier:multiplier constant:constant];
+    return constraint;
+}
+
 // MARK: Relative attributes
 
 - (void)HVD_matchLayoutAttribute:(NSLayoutAttribute)attribute ofSubviews:(NSArray *)subviews {

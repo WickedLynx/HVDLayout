@@ -44,6 +44,8 @@
 
 - (NSLayoutConstraint *)HVD_setWidth:(CGFloat)width;
 - (NSLayoutConstraint *)HVD_setHeight:(CGFloat)height;
+- (NSLayoutConstraint *)HVD_setWidthRelativeToView:(UIView *)view withMultiplier:(CGFloat)multiplier constant:(CGFloat)constant;
+- (NSLayoutConstraint *)HVD_setHeightRelativeToView:(UIView *)view withMultiplier:(CGFloat)multiplier constant:(CGFloat)constant;
 
 // MARK: Relative attributes
 
